@@ -1,2 +1,2 @@
 # LuaGame
-repo for game im making in with LÖVE2D
+repo for game im making in Lua with LÖVE2D
