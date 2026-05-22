@@ -26,6 +26,12 @@ local mouseMovementThreshold = 1
 local rippleSound = nil -- Sound effect for ripple spawn
 --#endregion
 
+--#region Thumbnail Variables
+local thumbnailSize = 4
+--#endregion
+
+DuckImage = love.graphics.newImage("assets/duck_small_static_facing_right.png")
+CountingDucksThumbnail = love.graphics.newImage("assets/duck_counting_thumbnail.png")
 function menu:load()
     Basicpixelfont = love.graphics.setNewFont("fonts/basic_pixel_font.ttf", fontSize)
     love.graphics.setFont(Basicpixelfont)
@@ -55,6 +61,10 @@ function menu:load()
 
     -- Load ripple sound
     rippleSound = love.audio.newSource("assets/sounds/loud_water_drop.mp3", "static")
+    CentreScreen = {
+        x = love.graphics.getWidth() / 2,
+        y = love.graphics.getHeight() / 2
+    }
 end
 
 function menu:draw()
@@ -102,10 +112,19 @@ function menu:draw()
         startX = startX + Basicpixelfont:getWidth(char) * textSize
     end
     local offsetY = math.sin(time * 4 + (#text + 1) * textSpeed) * 4
-    love.graphics.draw(love.graphics.newImage("assets/pixil-frame-0 (2).png"), startX, TextY + offsetY,
+    love.graphics.draw(DuckImage, startX, TextY + offsetY,
         0, 0.3, 0.3)
-    love.graphics.print(("window width / 2: " .. love.graphics.getWidth() / 2), 0, 0 + 54, 0, debugTextSize,
-        debugTextSize)
+
+
+    --#region game thumbnails
+    love.graphics.draw(CountingDucksThumbnail, CentreScreen.x - CountingDucksThumbnail:getWidth() * thumbnailSize - 40,
+        TextY + 250,
+        0, thumbnailSize,
+        thumbnailSize)
+    love.graphics.draw(CountingDucksThumbnail, CentreScreen.x + 40, TextY + 250,
+        0, thumbnailSize,
+        thumbnailSize)
+    --#endregion
 end
 
 function menu:update(dt)
