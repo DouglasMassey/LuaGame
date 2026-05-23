@@ -26,3 +26,7 @@ end
 function love.keypressed(key)
     SceneManager.keypressed(key)
 end
+
+function love.mousepressed(x, y, button)
+    SceneManager.mousepressed(x, y, button)
+end
